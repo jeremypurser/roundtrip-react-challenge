@@ -1,6 +1,7 @@
 import * as React from 'react';
+import { PayerFormProps } from '../containers/PayerFormContainer';
 
-export const PayerFormScreen = () => {
+export const PayerFormScreen = (props: PayerFormProps) => {
   return (
     <form id="payer-form">
       {/* Carrier and plan name */}
@@ -16,8 +17,14 @@ export const PayerFormScreen = () => {
       <input type="tel" id="phone" name="phone" />
 
       {/* Match */}
-      <select name="match" id="match" form="payer-form">
-        <option value="example">Example</option>
+      <select name="match" id="match" form="payer-form" defaultValue="">
+        <option value="">Select</option>
+        {/* Plans from API */}
+        {props.plans.map(plan => (
+          <option key={plan.id} value={plan.name}>
+            {plan.name}
+          </option>
+        ))}
       </select>
 
       <button type="button">Match</button>
