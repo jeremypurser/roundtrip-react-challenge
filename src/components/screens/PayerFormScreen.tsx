@@ -5,8 +5,8 @@ export const PayerFormScreen = (props: PayerFormProps) => {
   return (
     <form id="payer-form">
       {/* Carrier and plan name */}
-      <label htmlFor="fname">First name:</label>
-      <input type="text" id="fname" name="fname" />
+      <label htmlFor="name">Carrier and plan name:</label>
+      <input type="text" id="name" name="name" />
 
       {/* Company Id */}
       <label htmlFor="company-id">Company Id:</label>
@@ -17,7 +17,14 @@ export const PayerFormScreen = (props: PayerFormProps) => {
       <input type="tel" id="phone" name="phone" />
 
       {/* Match */}
-      <select name="match" id="match" form="payer-form" defaultValue="">
+      <select
+        name="match"
+        id="match"
+        form="payer-form"
+        defaultValue=""
+        value={props.selectedMatch}
+        onChange={props.handleSelectMatch}
+      >
         <option value="">Select</option>
         {/* Plans from API */}
         {props.masterPlans.map(plan => (
@@ -27,7 +34,9 @@ export const PayerFormScreen = (props: PayerFormProps) => {
         ))}
       </select>
 
-      <button type="button">Match</button>
+      <button type="button" disabled={props.matchDisabled}>
+        Match
+      </button>
       <button type="button">Create Insurance</button>
     </form>
   );
