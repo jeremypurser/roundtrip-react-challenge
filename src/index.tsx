@@ -1,12 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
+import { PayerFormScreen } from './components/screens/PayerFormScreen';
 import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <PayerFormScreen />
   </React.StrictMode>,
   document.getElementById('root')
 );
