@@ -20,7 +20,7 @@ export const PayerFormScreen = (props: PayerFormProps) => {
       <select name="match" id="match" form="payer-form" defaultValue="">
         <option value="">Select</option>
         {/* Plans from API */}
-        {props.plans.map(plan => (
+        {props.masterPlans.map(plan => (
           <option key={plan.id} value={plan.name}>
             {plan.name}
           </option>

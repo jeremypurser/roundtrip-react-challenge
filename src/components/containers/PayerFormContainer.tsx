@@ -5,7 +5,7 @@ import { Environment } from '../../config/Environment';
 const { useEffect, useState } = React;
 
 export interface PayerFormProps {
-  plans: {
+  masterPlans: {
     id: number;
     name: string;
   }[];
@@ -44,6 +44,6 @@ export const payerFormContainer = (
       <span className="sr-only">Loading...</span>
     </Spinner>
   ) : (
-    <Screen plans={masterPlans} />
+    <Screen masterPlans={masterPlans} />
   );
 };
