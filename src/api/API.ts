@@ -6,7 +6,7 @@ export interface Alias {
 }
 
 export interface API {
-  getUnmatchedPlans: (id: number) => Promise<any>;
+  getUnmatchedPlan: (id: number) => Promise<any>;
 
   getMasterPlans: () => Promise<any>;
 

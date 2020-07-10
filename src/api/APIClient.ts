@@ -5,7 +5,7 @@ export class APIClient extends APIBase implements API {
   /**
    * endpoint -> /unmatched-plans/:id
    */
-  getUnmatchedPlans(id: number): Promise<any> {
+  getUnmatchedPlan(id: number): Promise<any> {
     return this._fetch({
       endpoint: `unmatched-plans/${id}`,
       method: 'GET',
