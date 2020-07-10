@@ -27,6 +27,7 @@ export class APIBase {
       req.method === 'PUT' ||
       req.method === 'PATCH'
     ) {
+      requestInit.headers = { 'Content-Type': 'application/json' };
       requestInit.body = req.data;
     }
 
@@ -38,12 +39,13 @@ export class APIBase {
     `);
 
     return fetch(`${this.baseUrl}/${req.endpoint}`, requestInit)
-      .then((response) => response.json())
-      .then((json) => {
+      .then(response => response.json())
+      .then(json => {
         this.log(`
         ---- RESPONSE ----
         response: ${JSON.stringify(json, null, 2)}
         `);
+
         return json;
       });
   }
