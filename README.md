@@ -69,6 +69,9 @@ src/
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app). Given more time I would prefer a server-side rendered solution, however, for the sake of velocity I chose CRA.
 
+**Initial Data**
+The `unmatched_plan` is fetched on the page load from a random integer of available ids (1 - 4).
+
 ### TypeScript
 
 This app uses TypeScript to leverage static analysis for code coverage and to minimize runtime errors during the development process. The TS style follows many conventions from [_Effective TypeScript_](https://www.oreilly.com/library/view/effective-typescript/9781492053736/). The codebase minimizes the use of `any` types. Given more time, I would have more strongly typed the return types of the API Client methods.
