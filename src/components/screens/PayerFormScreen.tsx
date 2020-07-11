@@ -21,7 +21,6 @@ export const PayerFormScreen = (props: PayerFormProps) => {
         name="match"
         id="match"
         form="payer-form"
-        defaultValue=""
         value={props.selectedMatch}
         onChange={props.handleSelectMatch}
       >
