@@ -43,7 +43,7 @@ Open [http://localhost:3001](http://localhost:3001) to view it in the browser.
 ### `npm test`
 
 Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+
 
 ### `npm run build`
 
@@ -71,7 +71,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ### TypeScript
 
-This app uses TypeScript to leverages static analysic for typing code coverage and to minimize runtime errors during the development process. The code follows many conventions from [_Effective TypeScript_](https://www.oreilly.com/library/view/effective-typescript/9781492053736/). The codebase minimizes the use of `any` types. Given more time, I would have more strongly typed the return types of the API Client methods.
+This app uses TypeScript to leverage static analysis for code coverage and to minimize runtime errors during the development process. The TS style follows many conventions from [_Effective TypeScript_](https://www.oreilly.com/library/view/effective-typescript/9781492053736/). The codebase minimizes the use of `any` types. Given more time, I would have more strongly typed the return types of the API Client methods.
 
 ### Diagram
 
@@ -79,11 +79,11 @@ This app uses TypeScript to leverages static analysic for typing code coverage a
 
 ### API Client
 
-The API Client is a class adhering to an interface that could have any implementation, including a `mockAPI` client for testing. The API Client class extends a base class that handle logging and fetching. The implementation of the API Client is easily extended and provides succinct calls by abstracting boilerplate required by the native `fetch`.
+The API Client is a class adhering to an interface that could have any implementation, including a `mockAPI` client for testing. The API Client class extends a base class that handles logging and fetching. The implementation of the API Client is easily extended and provides succinct calls by abstracting boilerplate required by the native `fetch`.
 
 ### Environment
 
-For extensibility and maintainability, major dependencies and services are class through the [`Environment`](src/config/Environment.ts) object. The `Environment` class is a singleton that provides access to services through the `.current` property.
+For extensibility and maintainability, major dependencies and services are accessed through the [`Environment`](src/config/Environment.ts) object. The `Environment` class is a singleton that provides access to services through the `.current` property.
 
 _Example_
 
@@ -94,10 +94,12 @@ const { api } = Environment.current;
 The dependencies are `.set` on the `.current` property in the [`start`](src/index.tsx) of the application before the call to `ReactDOM.render`.
 
 ```typescript
+/** ... */
 Environment.set({
   api: new APIClient('http://api.example.com'),
   anotherService: ImportedLibrary
-})
+});
+/** ... */
 ```
 
 ### Screens and Containers
