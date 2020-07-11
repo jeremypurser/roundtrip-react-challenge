@@ -1,0 +1,113 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PayerForm should render correctly 1`] = `
+Array [
+  <h2>
+     
+  </h2>,
+  <form
+    className=""
+  >
+    <div
+      className="mb-3 input-group"
+    >
+      <div
+        className="input-group-prepend"
+      >
+        <span
+          className="input-group-text"
+          id="carrier-and-plan-name"
+        >
+          Carrier and plan name:
+        </span>
+      </div>
+      <input
+        aria-describedby="carrier-and-plan-name"
+        aria-label="Carrier and plan name"
+        className="form-control"
+        readOnly={true}
+        type="text"
+        value="undefined undefined"
+      />
+    </div>
+    <div
+      className="mb-3 input-group"
+    >
+      <div
+        className="input-group-prepend"
+      >
+        <span
+          className="input-group-text"
+          id="company-id"
+        >
+          Company Id:
+        </span>
+      </div>
+      <input
+        aria-describedby="company-id"
+        aria-label="Company Id"
+        className="form-control"
+        readOnly={true}
+        type="text"
+      />
+    </div>
+    <div
+      className="mb-3 input-group"
+    >
+      <div
+        className="input-group-prepend"
+      >
+        <span
+          className="input-group-text"
+          id="company-phone"
+        >
+          Phone number:
+        </span>
+      </div>
+      <input
+        aria-describedby="company-phone"
+        aria-label="Phone number"
+        className="form-control"
+        readOnly={true}
+        type="text"
+      />
+    </div>
+    <div
+      className="form-group"
+    >
+      <select
+        className="form-control"
+        onChange={[Function]}
+        value=""
+      >
+        <option
+          value=""
+        >
+          Select
+        </option>
+      </select>
+    </div>
+    <button
+      className="btn btn-light"
+      disabled={false}
+      onClick={[Function]}
+      style={
+        Object {
+          "marginRight": "1rem",
+        }
+      }
+      type="button"
+    >
+      Match
+    </button>
+    <button
+      className="btn btn-primary"
+      disabled={false}
+      onClick={[Function]}
+      type="button"
+    >
+      Create Insurance
+    </button>
+  </form>,
+]
+`;
