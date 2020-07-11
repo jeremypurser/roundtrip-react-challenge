@@ -1,16 +1,43 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Roundtrip React Coding Challenge - Jeremy Purser
 
-## Available Scripts
+## Table of Contents
+
+1. [Getting Started](#getting-started)
+    - [Available Scripts](#available-scripts)
+2. [File Structure](#file-structure)
+3. [Design and Architecture](#design-and-architecture)
+    - [TypeScript](#typescript)
+    - [API Client](#api-client)
+    - [Environment](#environment)
+    - [Screens and Containers](#screens-and-containers)
+    - [State Management](#state-management)
+
+## Getting Started
+
+To run this project locally, clone the repo:
+```sh
+git clone git@github.com:jeremypurser/roundtrip-react-challenge.git
+```
+Install the dependencies:
+```sh
+npm install
+```
+Create the environemnet variables:
+```sh
+cp .env.example .env
+```
+
+This client app serves data from a [mocked API](https://github.com/RideRoundTrip/react-challenge). Follow the [documentation](https://github.com/RideRoundTrip/react-challenge#setup) to run the server.
+
+
+### Available Scripts
 
 In the project directory, you can run:
 
 ### `npm start`
 
 Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+Open [http://localhost:3001](http://localhost:3001) to view it in the browser.
 
 ### `npm test`
 
@@ -20,25 +47,109 @@ See the section about [running tests](https://facebook.github.io/create-react-ap
 ### `npm run build`
 
 Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+## File Structure
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+```sh
+src/
+  __test__/  # Unit tests
+    __snapshots__/ # React test references
+  api/ # API Client interfaces and implementations
+  components/ # React components
+    containers/ # Higher order components connected to state and business logic
+    screens/ # Purely presentational screens
+    shared/ # Reusable components
+  config/ # Coordinates major dependencies
+  util/ # Helper functions
 
-### `npm run eject`
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+## Design and Architecture
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app). Given more time I would prefer a server-side rendered solution, however, for the sake of velocity I chose CRA.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+### TypeScript
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+This app uses TypeScript to leverages static analysic for typing code coverage and to minimize runtime errors during the development process. The code follows many conventions from [_Effective TypeScript_](https://www.oreilly.com/library/view/effective-typescript/9781492053736/). The codebase minimizes the use of `any` types. Given more time, I would have more strongly typed the return types of the API Client methods.
 
-## Learn More
+### API Client
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+The API Client is a class adhering to an interface that could have any implementation, including a `mockAPI` client for testing. The API Client class extends a base class that handle logging and fetching. The implementation of the API Client is easily extended and provides succinct calls by abstracting boilerplate required by the native `fetch`.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### Environment
+
+For extensibility and maintainability, major dependencies and services are class through the [`Environment`](src/config/Environment.ts) object. The `Environment` class is a singleton that provides access to services through the `.current` property.
+
+_Example_
+
+```typescript
+const { api } = Environment.current;
+```
+
+The dependencies are `.set` on the `.current` property in the [`start`](src/index.tsx) of the application before the call to `ReactDOM.render`.
+
+```typescript
+Environment.set({
+  api: new APIClient('http://api.example.com'),
+  anotherService: ImportedLibrary
+})
+```
+
+### Screens and Containers
+
+For separation of concerns `Screen` components are purely presentational components that consume props from a parent and return JSX. Screens are consumed by higher order components, `Containers`, that return a `Screen` connected to state and business logic.
+
+_Example_
+
+```typescript
+// UserScreen.tsx
+import React from 'react';
+import { UserProps } from '../containers/UserContainer';
+
+export const UserScreen = (props: User) => {
+  return <div>{props.name}</div>;
+}
+
+// UserContainer.tsx
+import React from 'react';
+
+export interface UserProps {
+  name: string;
+}
+
+export const userContainer = (Screen: React.ComponentType<UserProps>) => () => {
+  const [user, setUser] = React.useState();
+
+  useEffect(() => {
+    api.getUser({id: 3}).then(setUser)
+  })
+
+  return <Screen name={user.name}>;
+}
+
+// Call of connected component
+// App.tsx
+import React from 'react';
+import { UserScreen } from './components/screens/UserScreen';
+import { userContainer } from './components/containers/UserContainer';
+
+const User = userContainer(UserScreen);
+
+const App = () => {
+  return (
+    <div>
+      <User />
+    </div>
+  )
+}
+```
+
+### State Management
+
+This application doesn't use any dependencies besides `React` for state management. The codebase uses functional components and the React Hooks API to manage state, I/O, and side effects. If state if needed my multiple components, we may introduce a pattern to lift state with the `Context` API or a library such as `Redux`.
+
+
+
+
+
+
