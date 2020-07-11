@@ -81,6 +81,8 @@ This app uses TypeScript to leverage static analysis for code coverage and to mi
 
 The API Client is a class adhering to an interface that could have any implementation, including a `mockAPI` client for testing. The API Client class extends a base class that handles logging and fetching. The implementation of the API Client is easily extended and provides succinct calls by abstracting boilerplate required by the native `fetch`.
 
+I noticed the `POST` methods on the mock server do not protect against duplicate entries. Given more time, I could protect against in the client, however, it would degrade performance with additional API calls.
+
 ### Environment
 
 For extensibility and maintainability, major dependencies and services are accessed through the [`Environment`](src/config/Environment.ts) object. The `Environment` class is a singleton that provides access to services through the `.current` property.
