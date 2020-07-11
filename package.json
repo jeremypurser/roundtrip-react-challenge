@@ -1,5 +1,6 @@
 {
   "name": "roundtrip-react-challenge",
+  "homepage": "https://jeremypurser.github.io/roundtrip-react-challenge/",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
