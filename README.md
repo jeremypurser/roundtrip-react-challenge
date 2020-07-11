@@ -7,6 +7,7 @@
 2. [File Structure](#file-structure)
 3. [Design and Architecture](#design-and-architecture)
     - [TypeScript](#typescript)
+    - [Diagram](#diagram)
     - [API Client](#api-client)
     - [Environment](#environment)
     - [Screens and Containers](#screens-and-containers)
@@ -72,6 +73,10 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 This app uses TypeScript to leverages static analysic for typing code coverage and to minimize runtime errors during the development process. The code follows many conventions from [_Effective TypeScript_](https://www.oreilly.com/library/view/effective-typescript/9781492053736/). The codebase minimizes the use of `any` types. Given more time, I would have more strongly typed the return types of the API Client methods.
 
+### Diagram
+
+![App diagram](assets/app_diagram.png)
+
 ### API Client
 
 The API Client is a class adhering to an interface that could have any implementation, including a `mockAPI` client for testing. The API Client class extends a base class that handle logging and fetching. The implementation of the API Client is easily extended and provides succinct calls by abstracting boilerplate required by the native `fetch`.
@@ -121,8 +126,8 @@ export const userContainer = (Screen: React.ComponentType<UserProps>) => () => {
   const [user, setUser] = React.useState();
 
   useEffect(() => {
-    api.getUser({id: 3}).then(setUser)
-  })
+    api.getUser({id: 3}).then(setUser);
+  });
 
   return <Screen name={user.name}>;
 }
@@ -140,13 +145,13 @@ const App = () => {
     <div>
       <User />
     </div>
-  )
+  );
 }
 ```
 
 ### State Management
 
-This application doesn't use any dependencies besides `React` for state management. The codebase uses functional components and the React Hooks API to manage state, I/O, and side effects. If state if needed my multiple components, we may introduce a pattern to lift state with the `Context` API or a library such as `Redux`.
+This application doesn't use any dependencies besides `React` for state management. The codebase uses functional components and the React Hooks API to manage state, I/O, and side effects. In the future, if state is needed my multiple components, we may introduce a pattern to lift state with the `Context` API or a library such as `Redux`.
 
 
 
