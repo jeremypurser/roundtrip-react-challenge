@@ -1,42 +1,94 @@
 import * as React from 'react';
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
+import FormControl from 'react-bootstrap/FormControl';
+import InputGroup from 'react-bootstrap/InputGroup';
 import { PayerFormProps } from '../containers/PayerFormContainer';
 
 export const PayerFormScreen = (props: PayerFormProps) => {
   return (
-    <form id="payer-form">
-      {/* Carrier and plan name */}
-      <label htmlFor="name">Carrier and plan name:</label>
-      <input type="text" id="name" name="name" />
+    <>
+      <h2>
+        {props.unmatchedPlan?.carrier_name} {props.unmatchedPlan?.plan_name}
+      </h2>
+      <Form>
+        {/* Carrier and plan name */}
+        <InputGroup className="mb-3">
+          <InputGroup.Prepend>
+            <InputGroup.Text id="carrier-and-plan-name">
+              Carrier and plan name:
+            </InputGroup.Text>
+          </InputGroup.Prepend>
+          <FormControl
+            aria-label="Carrier and plan name"
+            aria-describedby="carrier-and-plan-name"
+            type="text"
+            value={`${props.unmatchedPlan?.carrier_name} ${props.unmatchedPlan?.plan_name}`}
+            readOnly={true}
+          />
+        </InputGroup>
 
-      {/* Company Id */}
-      <label htmlFor="company-id">Company Id:</label>
-      <input type="number" id="company-id" name="company-id" />
+        {/* Company Id */}
+        <InputGroup className="mb-3">
+          <InputGroup.Prepend>
+            <InputGroup.Text id="company-id">Company Id:</InputGroup.Text>
+          </InputGroup.Prepend>
+          <FormControl
+            aria-label="Company Id"
+            aria-describedby="company-id"
+            type="text"
+            value={props.unmatchedPlan?.company_id}
+            readOnly={true}
+          />
+        </InputGroup>
 
-      {/* Phone number */}
-      <label htmlFor="phone">Phone number:</label>
-      <input type="tel" id="phone" name="phone" />
+        {/* Phone number */}
+        <InputGroup className="mb-3">
+          <InputGroup.Prepend>
+            <InputGroup.Text id="company-phone">Phone number:</InputGroup.Text>
+          </InputGroup.Prepend>
+          <FormControl
+            aria-label="Phone number"
+            aria-describedby="company-phone"
+            type="text"
+            value={props.unmatchedPlan?.company_phone}
+            readOnly={true}
+          />
+        </InputGroup>
 
-      {/* Match */}
-      <select
-        name="match"
-        id="match"
-        form="payer-form"
-        value={props.selectedMatch}
-        onChange={props.handleSelectMatch}
-      >
-        <option value="">Select</option>
-        {/* Plans from API */}
-        {props.masterPlans.map(plan => (
-          <option key={plan.id} value={plan.name}>
-            {plan.name}
-          </option>
-        ))}
-      </select>
+        {/* Match */}
+        <Form.Group>
+          <Form.Control
+            as="select"
+            value={props.selectedMatch}
+            onChange={props.handleSelectMatch}
+          >
+            <option value="">Select</option>
+            {/* Plans from API */}
+            {props.masterPlans.map(plan => (
+              <option key={plan.id} value={plan.id}>
+                {plan.name}
+              </option>
+            ))}
+          </Form.Control>
+        </Form.Group>
 
-      <button type="button" disabled={props.matchDisabled}>
-        Match
-      </button>
-      <button type="button">Create Insurance</button>
-    </form>
+        <Button
+          variant="light"
+          disabled={props.matchDisabled || props.matchLoading}
+          style={{ marginRight: '1rem' }}
+          onClick={props.handleClickMatch}
+        >
+          {props.matchLoading ? 'Loading...' : 'Match'}
+        </Button>
+        <Button
+          variant="primary"
+          disabled={props.createInsuranceLoading}
+          onClick={props.handleClickCreateInsurance}
+        >
+          {props.createInsuranceLoading ? 'Loading...' : 'Create Insurance'}
+        </Button>
+      </Form>
+    </>
   );
 };

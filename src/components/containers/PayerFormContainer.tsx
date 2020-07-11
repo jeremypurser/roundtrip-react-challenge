@@ -1,6 +1,7 @@
 import * as React from 'react';
 import Spinner from 'react-bootstrap/Spinner';
 import { Environment } from '../../config/Environment';
+import { randomNumberFromRange } from '../../util/randomNumberFromRange';
 
 const { useEffect, useState } = React;
 
@@ -27,14 +28,19 @@ export interface PayerFormProps {
   }[];
   /** select value state */
   selectedMatch: string;
-  /** button state */
+  /** match button state */
   matchDisabled: boolean;
+  matchLoading: boolean;
+  /** create insurance button state */
+  createInsuranceLoading: boolean;
   /** unmatched plan from API */
   unmatchedPlan: UnmatchedPlan | undefined;
   /** Change handler */
   handleSelectMatch: (e: React.ChangeEvent<HTMLSelectElement>) => void;
   /** match click handler */
-  handleClickMatch: (e: React.MouseEvent<HTMLButtonElement>) => void;
+  handleClickMatch: () => void;
+  /** create insurance click handler */
+  handleClickCreateInsurance: () => void;
 }
 
 /**
@@ -45,7 +51,8 @@ export interface PayerFormProps {
 export const payerFormContainer = (
   Screen: React.ComponentType<PayerFormProps>
 ) => () => {
-  const unmatchedPlanId = 2; // TODO: make dynamic
+  // Generate unmatched plan id to fetch from random number
+  const unmatchedPlanId = randomNumberFromRange(1, 4);
 
   const { api } = Environment.current;
 
@@ -67,6 +74,10 @@ export const payerFormContainer = (
 
   // match button state
   const [matchDisabled, setMatchDisable] = useState(false);
+  const [matchLoading, setMatchLoading] = useState(false);
+
+  // create insurance button state
+  const [createInsuranceLoading, setCreateInsuranceLoading] = useState(false);
 
   // fetch data needed for screen
   useEffect(() => {
@@ -93,7 +104,51 @@ export const payerFormContainer = (
     setMatchDisable(selectedMatch === '');
   }, [selectedMatch]);
 
-  // TODO: handleClickMatch
+  // POST new alias
+  const handleClickMatch = () => {
+    setMatchLoading(true);
+    // assert unmatchedPlan !== undefined because clickHandler
+    // is only available if it is defined
+    api
+      .addAlias({
+        plan_name: unmatchedPlan?.plan_name!,
+        carrier_name: unmatchedPlan?.carrier_name!,
+        unmatched_plan_id: unmatchedPlan?.id!,
+        master_plan_id: Number(selectedMatch),
+      })
+      .then(() => {
+        // Alert
+      })
+      .catch(error => {
+        // Alert
+      })
+      .finally(() => {
+        setMatchLoading(false);
+      });
+  };
+
+  // POST new master plan
+  const handleClickCreateInsurance = () => {
+    setCreateInsuranceLoading(true);
+
+    if (unmatchedPlan) {
+      api
+        .addMasterPlan({
+          name: `${unmatchedPlan?.carrier_name} ${unmatchedPlan?.plan_name}`,
+        })
+        .then(() => {
+          // ALERT success
+        })
+        .catch(error => {
+          // ALERT error
+        })
+        .finally(() => {
+          setCreateInsuranceLoading(false);
+        });
+    } else {
+      // Alert
+    }
+  };
 
   return loading ? (
     <Spinner animation="border" role="status">
@@ -103,10 +158,13 @@ export const payerFormContainer = (
     <Screen
       masterPlans={masterPlans}
       matchDisabled={matchDisabled}
+      matchLoading={matchLoading}
+      createInsuranceLoading={createInsuranceLoading}
       unmatchedPlan={unmatchedPlan}
       selectedMatch={selectedMatch}
       handleSelectMatch={e => setSelectedMatch(e.target.value)}
-      handleClickMatch={e => {}}
+      handleClickMatch={handleClickMatch}
+      handleClickCreateInsurance={handleClickCreateInsurance}
     />
   );
 };
