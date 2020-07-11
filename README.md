@@ -1,5 +1,7 @@
 # Roundtrip React Coding Challenge - Jeremy Purser
 
+Deployed  live on [GitHub pages](https://jeremypurser.github.io/roundtrip-react-challenge/).
+
 ## Table of Contents
 
 1. [Getting Started](#getting-started)
@@ -71,6 +73,9 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 **Initial Data**
 The `unmatched_plan` is fetched on the page load from a random integer of available ids (1 - 4).
+
+**Text Input Data**
+I chose to make the text inputs read-only based on the requirements docs. They are populated by data retrieved from the API and the input data is immutable.
 
 ### TypeScript
 
