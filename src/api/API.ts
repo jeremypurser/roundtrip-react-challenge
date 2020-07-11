@@ -11,4 +11,6 @@ export interface API {
   getMasterPlans: () => Promise<any>;
 
   addAlias: (alias: Alias) => Promise<any>;
+
+  addMasterPlan: (masterPlan: { name: string }) => Promise<any>;
 }

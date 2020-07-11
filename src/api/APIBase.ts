@@ -28,14 +28,14 @@ export class APIBase {
       req.method === 'PATCH'
     ) {
       requestInit.headers = { 'Content-Type': 'application/json' };
-      requestInit.body = req.data;
+      requestInit.body = JSON.stringify(req.data);
     }
 
     this.log(`
     ---- REQUEST ----
     url: ${this.baseUrl}/${req.endpoint}
     method: ${req.method}
-    data: ${req.data ? req.data : 'N/A'}
+    data: ${req.data ? JSON.stringify(req.data, null, 2) : 'N/A'}
     `);
 
     return fetch(`${this.baseUrl}/${req.endpoint}`, requestInit)

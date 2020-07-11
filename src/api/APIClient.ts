@@ -39,4 +39,16 @@ export class APIClient extends APIBase implements API {
       data: alias,
     });
   }
+
+  /**
+   * endpoint -> /master-plans
+   * payload -> { name: 'Carrier Name Plan Name'}
+   */
+  addMasterPlan(masterPlan: { name: string }): Promise<any> {
+    return this._fetch({
+      endpoint: 'master-plans',
+      method: 'POST',
+      data: masterPlan,
+    });
+  }
 }
