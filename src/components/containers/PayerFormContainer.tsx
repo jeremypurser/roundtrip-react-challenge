@@ -2,6 +2,7 @@ import * as React from 'react';
 import Spinner from 'react-bootstrap/Spinner';
 import { Environment } from '../../config/Environment';
 import { randomNumberFromRange } from '../../util/randomNumberFromRange';
+import { Alert, AlertProps } from '../shared/Alert';
 
 const { useEffect, useState } = React;
 
@@ -79,6 +80,19 @@ export const payerFormContainer = (
   // create insurance button state
   const [createInsuranceLoading, setCreateInsuranceLoading] = useState(false);
 
+  // Alert
+  const [alertProps, setAlertProps] = useState<AlertProps>({
+    type: undefined,
+    message: undefined,
+    show: false,
+    onClose: () => {
+      setAlertProps({
+        ...alertProps,
+        show: false,
+      });
+    },
+  });
+
   // fetch data needed for screen
   useEffect(() => {
     setLoading(true);
@@ -88,10 +102,15 @@ export const payerFormContainer = (
       .then(([resMasterPlans, resUnmatchedPlan]) => {
         setMasterPlans(resMasterPlans);
         setUnmatchedPlan(resUnmatchedPlan);
-        // ALERT success
       })
       .catch(error => {
-        // ALERT
+        // show Alert
+        setAlertProps({
+          ...alertProps,
+          type: 'Error',
+          message: error,
+          show: true,
+        });
       })
       .finally(() => setLoading(false));
 
@@ -118,9 +137,21 @@ export const payerFormContainer = (
       })
       .then(() => {
         // Alert
+        setAlertProps({
+          ...alertProps,
+          type: 'Success',
+          message: 'Your match has been submitted.',
+          show: true,
+        });
       })
       .catch(error => {
-        // Alert
+        // show Alert
+        setAlertProps({
+          ...alertProps,
+          type: 'Error',
+          message: error,
+          show: true,
+        });
       })
       .finally(() => {
         setMatchLoading(false);
@@ -137,16 +168,34 @@ export const payerFormContainer = (
           name: `${unmatchedPlan?.carrier_name} ${unmatchedPlan?.plan_name}`,
         })
         .then(() => {
-          // ALERT success
+          // show Alert success
+          setAlertProps({
+            ...alertProps,
+            type: 'Success',
+            message: 'Insurance successfully created.',
+            show: true,
+          });
         })
         .catch(error => {
           // ALERT error
+          setAlertProps({
+            ...alertProps,
+            type: 'Error',
+            message: error,
+            show: true,
+          });
         })
         .finally(() => {
           setCreateInsuranceLoading(false);
         });
     } else {
       // Alert
+      setAlertProps({
+        ...alertProps,
+        type: 'Error',
+        message: 'The form is incomplete',
+        show: true,
+      });
     }
   };
 
@@ -155,16 +204,19 @@ export const payerFormContainer = (
       <span className="sr-only">Loading...</span>
     </Spinner>
   ) : (
-    <Screen
-      masterPlans={masterPlans}
-      matchDisabled={matchDisabled}
-      matchLoading={matchLoading}
-      createInsuranceLoading={createInsuranceLoading}
-      unmatchedPlan={unmatchedPlan}
-      selectedMatch={selectedMatch}
-      handleSelectMatch={e => setSelectedMatch(e.target.value)}
-      handleClickMatch={handleClickMatch}
-      handleClickCreateInsurance={handleClickCreateInsurance}
-    />
+    <>
+      <Alert {...alertProps} />
+      <Screen
+        masterPlans={masterPlans}
+        matchDisabled={matchDisabled}
+        matchLoading={matchLoading}
+        createInsuranceLoading={createInsuranceLoading}
+        unmatchedPlan={unmatchedPlan}
+        selectedMatch={selectedMatch}
+        handleSelectMatch={e => setSelectedMatch(e.target.value)}
+        handleClickMatch={handleClickMatch}
+        handleClickCreateInsurance={handleClickCreateInsurance}
+      />
+    </>
   );
 };
