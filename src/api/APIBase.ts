@@ -8,9 +8,9 @@ export class APIBase {
   }
 
   private log(message: string) {
-    // if (process.env.NODE_ENV !== 'production') {
-    console.log(message);
-    // }
+    if (process.env.NODE_ENV !== 'production') {
+      console.log(message);
+    }
   }
 
   protected _fetch(req: {
