@@ -11,12 +11,7 @@ function start() {
     api: new APIClient(process.env.REACT_APP_API_URL!),
   });
 
-  ReactDOM.render(
-    <React.StrictMode>
-      <App />
-    </React.StrictMode>,
-    document.getElementById('root')
-  );
+  ReactDOM.render(<App />, document.getElementById('root'));
 }
 
 start();
