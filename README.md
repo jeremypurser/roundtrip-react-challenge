@@ -8,6 +8,7 @@ Deployed  live on [GitHub pages](https://jeremypurser.github.io/roundtrip-react-
     - [Available Scripts](#available-scripts)
 2. [File Structure](#file-structure)
 3. [Design and Architecture](#design-and-architecture)
+    - [Dependencies](#dependencies)
     - [TypeScript](#typescript)
     - [Diagram](#diagram)
     - [API Client](#api-client)
@@ -76,6 +77,13 @@ The `unmatched_plan` is fetched on the page load from a random integer of availa
 
 **Text Input Data**
 I chose to make the text inputs read-only based on the requirements docs. They are populated by data retrieved from the API and the input data is immutable.
+
+### Dependencies
+
+- [React & ReactDOM](https://reactjs.org/)
+- Bootstrap & [React-Bootstrap](https://react-bootstrap.github.io/)
+
+I chose to use a component-library to save time on styling, and to focus on the business requirements of the feature. I had considered Material-UI, but it felt like a bloated addition when I just needed a handful of components.
 
 ### TypeScript
 
