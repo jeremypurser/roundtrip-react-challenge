@@ -1,6 +1,6 @@
 # Roundtrip React Coding Challenge - Jeremy Purser
 
-Deployed  live on [GitHub pages](https://jeremypurser.github.io/roundtrip-react-challenge/).
+Deployed on [GitHub pages](https://jeremypurser.github.io/roundtrip-react-challenge/).
 
 ## Table of Contents
 
