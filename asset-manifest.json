@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.js": "/roundtrip-react-challenge/static/js/main.e1f748c8.chunk.js",
+    "main.js.map": "/roundtrip-react-challenge/static/js/main.e1f748c8.chunk.js.map",
+    "runtime-main.js": "/roundtrip-react-challenge/static/js/runtime-main.6205e54b.js",
+    "runtime-main.js.map": "/roundtrip-react-challenge/static/js/runtime-main.6205e54b.js.map",
+    "static/css/2.af3c1da9.chunk.css": "/roundtrip-react-challenge/static/css/2.af3c1da9.chunk.css",
+    "static/js/2.e71ce5cb.chunk.js": "/roundtrip-react-challenge/static/js/2.e71ce5cb.chunk.js",
+    "static/js/2.e71ce5cb.chunk.js.map": "/roundtrip-react-challenge/static/js/2.e71ce5cb.chunk.js.map",
+    "index.html": "/roundtrip-react-challenge/index.html",
+    "precache-manifest.07124d335295a8e0aab4c58ef60eefec.js": "/roundtrip-react-challenge/precache-manifest.07124d335295a8e0aab4c58ef60eefec.js",
+    "service-worker.js": "/roundtrip-react-challenge/service-worker.js",
+    "static/css/2.af3c1da9.chunk.css.map": "/roundtrip-react-challenge/static/css/2.af3c1da9.chunk.css.map",
+    "static/js/2.e71ce5cb.chunk.js.LICENSE.txt": "/roundtrip-react-challenge/static/js/2.e71ce5cb.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.6205e54b.js",
+    "static/css/2.af3c1da9.chunk.css",
+    "static/js/2.e71ce5cb.chunk.js",
+    "static/js/main.e1f748c8.chunk.js"
+  ]
+}
